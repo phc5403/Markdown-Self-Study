@@ -1,3 +1,2 @@
-**[ Markdown Self-Study Note ] **
-**A**
-A
+**[ Markdown Self-Study Note ]**
+[ Markdown Self-Study Note ]
