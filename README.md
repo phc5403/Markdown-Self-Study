@@ -20,11 +20,16 @@
 ### 2. Headers(헤더)  
 → 헤더는 Setext, atx 두 가지의 Style이 있다.  
 #### Setext Style  
-→ `"<h1> Text </h1>", "== Text =="은 h1을 나타내고,`  
-→ `"<h2> Text </h2>", "-- Text --"은 h2을 나타낸다.`  
-<h1> A First Level Header </h1>
-<h2> A Second Level Header </h2>
+`"<h1> Header </h1>"`  
+`"Header"`  
+`====`
+→ h1을 나타냄.  
 
-==A Second Level Header==
+`"<h2> Header </h2>"`  
+`"Header"`  
+`----`
+→ h2을 나타냄.  
+<!-- <h1> A First Level Header </h1> -->
+A Second Level Header
+---------------------
 
-### 3. Blockquotes(인용구)  
