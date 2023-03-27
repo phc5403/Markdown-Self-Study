@@ -6,6 +6,7 @@
 # **☆ Basics**
 ## ▶ CONFIGURATION  
 ### 1. Line Break(줄 바꿈)   
+→ <br>태그 or 문장의 끝에 공백 2번(이상도 되긴 함)을 적는다.  
 `<br>`  
 
 ### 2. Moveable Type  
