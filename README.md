@@ -3,7 +3,7 @@
 
 ## Official_Document를 보면서 정리  
 
-
+# **☆ Basics**
 ## ▶ CONFIGURATION  
 ### 1. Line Break(줄 바꿈)   
 `<br>`  
@@ -93,3 +93,47 @@ This is an [Link Explanation] (https://github.com "Title is Github.")
 ※ \<a href="https://example.com" title="With a Title"> 과 동일한 표현.  
 
 ### 2. Reference  
+→ 참조 링크를 사용하면 문서의 다른 위치에서 정의한 이름으로 링크를 참조할 수 있다.  
+`I get 10 times more traffic from [Google][1] than from [Naver][2] or [Github][3].`  
+`    ` # 한 줄을 띄워야 함!  
+`[1]: https://google.com "Google"`  
+`[2]: https://naver.com "Naver"`  
+`[3]: https://github.com "Github"`  
+I get 10 times more traffic from [Goolgle][1] than from [Naver][2] or [Github][3].  
+
+[1]: https://google.com "Google"  
+[2]: https://naver.com "Naver"  
+[3]: https://github.com "Github"  
+  
+※ title 속성은 선택 사항이지만  링크 이름에는 문자, 숫자 및 공백이 포함될 수 있으며  
+대소문자를 구분하지 않는다.  
+
+## ▶ IMAGES(이미지)  
+→ 링크 구문과 유사하게 인라인 & 참조가 있다.  
+→ title 속성은 선택사항.  
+`![alt text] (/path/to/img.jpg "Title")`  # Inline  
+
+`![alt text]`  
+`[id]: /path/to/img.jpg "Title"`  # Reference  
+
+## ▶ CODE(코드)  
+→ \`(키보드 틸드키)로 코드 구문을 감싼다.  
+→ Ampersands(&), Angle brackets(\< or \>)는 자동으로 HTML 엔티티로 변환된다.  
+I strongly recommend against using any `<blink>` tags.
+
+I wish SmartyPants used named entities like `&mdash;`
+instead of decimal-encoded entities like `&#8212;`.  
+
+`If you want your page to validate under XHTML 1.0 Strict, you've got to put paragraph tags in your blockquotes:
+  "Hello"
+  "World!"`
+
+코드 블록안의 모든 줄을 공백 4개 or Tab 1개로 들여쓰기를 하면, 범위가 지정된다.  
+`Start`  
+`    Content_1`  
+`    Content_2`  
+`END`  
+
+# **☆ Syntax**
+## ▶ OVERVIEW  
+→
