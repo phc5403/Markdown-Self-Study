@@ -136,5 +136,91 @@ instead of decimal-encoded entities like `&#8212;`.
 `END`  
 
 # **☆ Syntax**
-## ▶ OVERVIEW  
-→
+## OVERVIEW  
+● Markdown은 최대한 가독성이 좋도록 설계되었음.  
+● 이를 위해 전적으로 구두점 문자로 구성되며 구두점 문자는 의미하는 대로 보이도록 신중하게 설계되었음(예를 들면 별표 `*문자*`는 실제로 문자를 강조하는것 처럼 보임).  
+
+## ▶ INLINE HTML
+### ① Table
+→ HTML 테이블 추가  
+→ Markdown 서식 구문은 블록 수준 HTML 태그 내에서 처리되지 않음.  
+→ 예를 들어, HTML 블록 내에서 Markdown 스타일 `*emphasis*` 을 사용할 수 없음.  
+→ 범위 수준 HTML 태그(`<span>`, `<cite>`, `<del>`)는 Markdown 단락, 목록 항목 또는 헤더의 모든 위치에서 사용할 수 있음.  원하는 경우 Markdown 서식 대신 HTML 태그를 사용할 수 도 있음.  
+→ 예를 들어, Markdown의 링크나 이미지 구문 대신, HTML의 `<a>`또는 `<img>` 태그를 사용하고 싶으면 쓰면 됨.  
+
+```
+This is a regular paragraph.
+<table>
+    <tr>
+        <td> Foo </td>
+    </tr>
+</table>
+
+This is another regular paragraph.
+```
+
+### ② Automatic Escaping For Special Characters(특수 문자 자동 이스케이프)
+● HTML에는 특별 취급하는 두 문자가 있음.  
+  1. `<` : 태그를 시작하는 데 사용됨.
+  2. '&' : HTML 엔티티를 표시하는 데 사용됨.  
+● 위 두 문자를 Literal 문자로 사용하고 싶은 경우, `&lt;`, `&amp;`와 같은 엔티티로 이스케이프 처리해야 함.
+
+● 특히, Ampersand(&, 앰퍼샌드)는 URL 내에서 사용할 때에도, `AT&T` → `AT&amp;T`와 같이 이스케이프 처리해야해서 쓰기 불편함.    
+  → 앵커 태그 `<href>` 속성에서 이스케이프 처리를 잊기 쉬워서 HTML 유효성 검사 오류의 가장 일반적인 원인이 되기도 함.   
+
+● **Markdown은 필요한 모든 이스케이프 처리를 해주어 이러한 문자를 자연스럽게 사용할 수 있음.**  
+  → HTML 엔티티의 일부로 앰퍼샌드를 사용하면 변경되지 않지만, 그렇지 않다면 `&amp;`로 자동 이스케이프 처리가 됨.  
+  → 따라서, 저작권 기호를 쓰고싶다면 `&copy;` = &copy; 처럼 쓰면 되지만, `AT&T`를 작성하는 경우 `AT&amp;T`라고 처리됨.  
+
+● 마찬가지로 Markdown은 인라인 HTML을 지원하므로 HTML 태그의 구분 기호로 `< (꺾쇠 괄호)`를 사용하면 Markdown에서 이를 그대로 취급함.
+  → 그러나, `4 < 5` 같이 작성하는 경우 `4 &lt; 5`로 이스케이프 처리가 되버림.  
+
+● Markdown 코드 범위 및 블록 내에서 `<`와 `&`는 항상 자동으로 인코딩 됨. 이렇게 하면 Markdown을 사용하여 HTML 코드에 대해 쉽게 작성 할 수 있음. (HTML 구문으로 작성하려면 모든 단일 `<`와 `&`를 일일이 이스케이프 처리해야 하기 때문)  
+
+## Block Elements
+### ① Paragraphs and Line breaks (단락 및 줄 바꿈)
+● 단락은 단순히 하나 이상의 빈 줄로 구분된 하나 이상의 연속된 텍스트 줄(빈 줄은 빈 줄처럼 보이는 모든 줄이다, 공백이나 탭만 포함된 줄은 공백으로 간주됨). **일반 단락(문자)은 공백이나 탭으로 들여쓰기하면 안 됨!**  
+
+● Markdown 에서는 `<br>`를 **단락의 끝에 공백 2번**을 하면 가능.  
+
+### ② Headers (헤더)
+● Markdown은 `Setext`와 `Atx`라는 두 가지 스타일의 헤더를 지원함.  
+
+#### Setext
+● `=`와 `-`를 사용하여 밑줄을 표현함.  
+```
+This is an H1
+=============
+
+This is an H2
+-------------
+```
+→ `=`와 `-`는 몇 개든 상관없음.  
+
+#### Atx
+● 줄 시작 부분에서 헤더 수준 1 ~ 6에 해당하는 1 ~ 6개의 해시 문자를 사용함.  
+```
+# This is an H1
+## This is an H2
+###### This is an H6
+
+### This is H3 ###### 
+```
+→ 마지막 줄 처럼 헤더를 닫을 수는 있지만, **열린 해시의 수에 따라 헤더 수준이 결정**되므로 닫는 해시는 열린 해시의 수와 일치할 필요조차 없다(=장식용).  
+
+### ③ BlockQuotes (인용구)
+● Markdown은 블록 인용에 이메일 스타일 `>` 문자를 사용함.  
+
+● Markdown은 간편하게 Hard-wrapped된 단락의 첫 줄 앞에만 `>`를 넣을 수 있음.  
+
+```
+> 이것은 두 개의 단락이 있는 블록 인용문입니다. Life is short, You need Python. 인생은 짧으니, 당신은 파이썬이 필요하다. Bruce Eckel.
+
+> Programming isn't about what you know; it's about what you can figure out. 프로그래밍은 무엇을 알고 있는가에 대한 것이 아니다. 그것은 당신이 무엇을 알아낼 수 있는 가에 대한 것이다. Chris Pine(크리스 파인). 
+```
+
+
+
+
+
+
