@@ -136,12 +136,12 @@ instead of decimal-encoded entities like `&#8212;`.
 `END`  
 
 # **☆ Syntax**
-## OVERVIEW  
+## ▶ OVERVIEW  
 ● Markdown은 최대한 가독성이 좋도록 설계되었음.  
 ● 이를 위해 전적으로 구두점 문자로 구성되며 구두점 문자는 의미하는 대로 보이도록 신중하게 설계되었음(예를 들면 별표 `*문자*`는 실제로 문자를 강조하는것 처럼 보임).  
 
-## ▶ INLINE HTML
-### ① Table
+### ① INLINE HTML
+#### Table
 → HTML 테이블 추가  
 → Markdown 서식 구문은 블록 수준 HTML 태그 내에서 처리되지 않음.  
 → 예를 들어, HTML 블록 내에서 Markdown 스타일 `*emphasis*` 을 사용할 수 없음.  
@@ -177,7 +177,7 @@ This is another regular paragraph.
 
 ● Markdown 코드 범위 및 블록 내에서 `<`와 `&`는 항상 자동으로 인코딩 됨. 이렇게 하면 Markdown을 사용하여 HTML 코드에 대해 쉽게 작성 할 수 있음. (HTML 구문으로 작성하려면 모든 단일 `<`와 `&`를 일일이 이스케이프 처리해야 하기 때문)  
 
-## Block Elements
+## ▶ Block Elements (블록 요소)
 ### ① Paragraphs and Line breaks (단락 및 줄 바꿈)
 ● 단락은 단순히 하나 이상의 빈 줄로 구분된 하나 이상의 연속된 텍스트 줄(빈 줄은 빈 줄처럼 보이는 모든 줄이다, 공백이나 탭만 포함된 줄은 공백으로 간주됨). **일반 단락(문자)은 공백이나 탭으로 들여쓰기하면 안 됨!**  
 
@@ -218,9 +218,214 @@ This is an H2
 
 > Programming isn't about what you know; it's about what you can figure out. 프로그래밍은 무엇을 알고 있는가에 대한 것이 아니다. 그것은 당신이 무엇을 알아낼 수 있는 가에 대한 것이다. Chris Pine(크리스 파인). 
 ```
+↳ 위 예시는 이렇게 보인다.  
+
+> The only way to learn a new programming language is by writing programs in it. 새로운 프로그래밍 언어를 배우는 유일한 방법은 그 언어로 프로그램을 만드는 것이다. Dennis Ritchie(데니스 리치, C언어 창시자).
+
+> In some ways, programming is like painting. You start with a blank canvas and certain basic raw materials. You use a combination of science, art, and craft to determine what to do with them. 어떤 면에서 프로그래밍은 그림그리는 것과 같다. 당신은 특정한 기본 재료들과 빈 캔버스에서 시작한다. 그것들을 가지고 무엇을 할지 경정하기 위해서 당신은 과학, 기술, 기예의 조합을 사용한다. Andrew Hunt(앤드류 헌트).
+
+● BlockQuotes는 다음 수준을 추가하여 중첩할 수 있다.  
+```
+> This is the first level of quoting.
+>
+> > This is nested blockquote.
+>
+> Back to the first level.
+```
+↳ 위 예시는 이렇게 보인다.  
+
+> This is the first level of quoting.
+>
+> > This is nested blockquote.
+>
+> Back to the first level.
+
+● BlockQuotes는 헤더, 목록 및 코드 블록을 비롯한 다른 Markdown 요소를 포함할 수 있다.  
+```
+> ## This is a header.
+>
+> 1.   This is the first list item.
+> 2.   This is the second list item. (숫자 뒤의 공백 3칸은 상관없는듯?)
+>
+> Here's some example code:
+>
+>     return shell_exec("echo $input | $markdown_script");
+
+```
+↳ 위 예시는 이렇게 보인다.  
+
+> ## This is a header.
+>
+> 1.   This is the first list item.
+> 2. This is the second list item.
+>
+> Here's some example code:
+>
+>     return shell_exec("echo $input | $markdown_script");
+
+### ④ LISTS (목록)
+● Markdown은 정렬된 목록(번호 매기기)과 정렬되지 않은 목록(글머리 기호)을 지원함.  
+
+● 순서가 지정되지 않은 목록은 `*`, `+`, `-`을 리스트 마커로 상호 교환하여 사용함.  
+```
+* Red
+* Green
+* Blue
+
++ Red
++ Green
++ Blue
+
+- Red
+- Green
+- Blue
+```
+
+● 순서가 있는 목록은 숫자 다음에 마침표를 사용함.  
+```
+1. Bird
+2. McHale
+3. Parish
+```
+
+● 목록을 표시하는 데 사용한 실제 숫자는 Markdown이 생성하는 HTML 출력에 영향을 미치지 않음(**최상위 숫자부터 자동으로 넘버링 됨!**).
+```
+3. Bird
+1. McHale
+8. Parish
+```
+↳ 위 예시는 이렇게 보인다.  
+
+3. Bird
+1. McHale
+8. Parish
+
+● 목록을 보기 좋게 `*   문자열`처럼 들여쓰기로 묶을 수 있긴함.  
+```
+*   Bird
+*   Magic
+```
+
+→ 내부적으로 HTML로 바뀌는 내용은?
+```
+<ul>
+<li> Bird </li>
+<li> Magic </li>
+</ul>
+```
+↳ 위 예시는 이렇게 보인다.  
+
+*   Bird
+*   Magic
+
+● 하지만, **목록 항목이 빈 줄로 구분되면 Markdown은 HTML을 출력에서 항목을 `<p>`태그로 자동으로 묶는다!** 
+```
+* Bird
+
+* Magic
+```
+
+→ 내부적으로 HTML로 바뀌는 내용은?
+```
+<ul>
+<li> <p> Bird </p> </li>
+<li> <p> Magic </p> </li>
+</ul>
+```
+
+● 목록 항목은 여러 단락으로 구성될 수 있다. 목록 항목의 각 후속 단락은 `4개의 공백 또는 하나의 탭`으로 들여쓰기 되어야 함.  
+```
+1. Life is short, You ne
+    ed Python.
+
+    인생은 짧고, 당신은 파이썬이 필요하다.
+
+2. Life is long, You don't need Python.
+```
+↳ 위 예시는 이렇게 보인다. (**need의 띄어쓰기 처리된 것 유의**) 
+
+1. Life is short, You ne
+    ed Python.
+
+    인생은 짧고, 당신은 파이썬이 필요하다.
+
+2. Life is long, You don't need Python.
+
+● 다른 예시  
+```
+*   This is a list item with two paragraphs.
+
+    This is the second paragraph in the list item. You're
+only required to indent the first line. Lorem ipsum dolor
+sit amet, consectetuer adipiscing elit.
+
+*   Another item in the same list.
+```
+↳ 위 예시는 이렇게 보인다.  
+
+*   This is a list item with two paragraphs.
+
+    This is the second paragraph in the list item. You're
+only required to indent the first line. Lorem ipsum dolor
+sit amet, consectetuer adipiscing elit.
+
+*   Another item in the same list.
+
+● 목록 항목 내에 **인용구**를 넣으려면 인용구의 `>` 구분 기호를 들여쓰기 해야 함.  
+```
+*   A list item with a blockquote:
+
+    > This is a blockquote
+    > inside a list item.
+```
+↳ 위 예시는 이렇게 보인다.  
+
+*   A list item with a blockquote:
+
+    > This is a blockquote
+    > inside a list item.
+
+● 목록 항목 내에 **코드 블록**을 넣으려면 코드 블록을 **두 번** 들여써야 함(공백 8개 or 탭 2개).  
+```
+*   A list item with a code block:
+
+        <code goes here>
+```
+↳ 위 예시는 이렇게 보인다.  
+
+*   A list item with a code block:
+
+        <code goes here>
+
+● 실수로 정렬된 목록은 마침표를 `\`로 이스케이프하여 트리거할 수 있다!
+```
+1986. What a great season1.  
+1986\. What a great season2.  
+1986. What a great season3.  
+```
+↳ 위 예시는 이렇게 보인다.  
+
+1986. What a great season1.  
+1986\. What a great season2.  
+1986. What a great season3.  
+↳ 항목의 넘버링을 건너 뛰고, 띄어쓰기도 다르게 되어있다.  
+
+### ⑤ Code Blocks (코드 블록)
+
+### ⑥ Horizontal Rules (수평적 규칙)
+
+
+## ▶ Span Elements (스팬 요소)
+### ① Links (연결)
+### ② Emphasis (중요성)
+### ③ Code (암호? 코드?)
+### ④ Images (이미지)
+
+## ▶ Miscellaneous (여러가지 잡다한)
+### ① Backslash Escapes (백슬래시 이스케이프)
+### ② Automatic Links (자동 링크)
 
 
 
 
-
-
+↳ 위 예시는 이렇게 보인다.  
