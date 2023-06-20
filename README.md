@@ -9,7 +9,7 @@
 → <br>태그 or 문장의 끝에 공백 2번(이상도 되긴 함)을 적는다.  
 `<br>`  
 
-### 2. Moveable Type  
+### 2. Moveable Type  ★★★★★★★★★★★★★★★★★★★
 뭘 뜻하는지 모르겠다,,  
 
 ## ▶ PARAGRAPHS, HEADERS, BLOCKQUOTES  
@@ -426,7 +426,7 @@ This is a normal paragraph:
 This is a normal paragraph:  
   This is a code block.  
 
-● Markdown 내부에서 변환된 모습.  
+● HTML로 표현된 모습.   
 ```
 <p> This is a normal paragraph: </p>
 <pre><code> This is a code black. </pre></code>
@@ -452,7 +452,7 @@ end tell
 
 ```
     <div class="footer">
-        &copy; 2004 Foo Corporation
+        &copy; 2004 Foo Corporation  # 원래 © 기호가 나와야하지만 자동 인코딩 됨.
     </div>
 ```
 ↳ 위 예시는 이렇게 보인다.  
@@ -461,17 +461,160 @@ end tell
         &copy; 2004 Foo Corporation
     </div>
 
+● HTML로 표현된 모습.   
+```
 <pre><code>&lt;div class="footer"&gt;
     &amp;copy; 2004 Foo Corporation
 &lt;/div&gt;
 </code></pre>
+```
 
-    
+※ 일반 Markdown 구문은 코드 블록 내에서 처리되지 않습니다.  
+※ 예를 들어, `*`는 코드 블록 내의 문자 그대로의 `*`입니다.  
+즉, Markdown을 사용하여 Markdown 자체 구문에 대해 작성하는 것도 쉽습니다.
+
 ### ⑥ Horizontal Rules (수평적 규칙)
+● 3개 이상의 하이폰(`-`), `*` 또는 밑줄을 한 줄에 단독으로 배치하여 가로줄 태그 `<hr />`를 생성할 수 있습니다.  
 
+● 원하는 경우 `-`이나 `*` 사이에 공백을 사용할 수 있습니다.  
+
+```
+* * *
+
+***
+
+*****
+
+- - -
+
+---------------------------------------
+```
+↳ 위 예시는 이렇게 보인다(모두 수평선).    
+* * *
+
+***
+
+*****
+
+- - -
+
+---------------------------------------
 
 ## ▶ Span Elements (스팬 요소)
 ### ① Links (연결)
+● Markdown은 `inline(인라인)`과 `reference(참조)` 두 가지 링크 스타일을 지원함.  
+
+● 두 스타일 모두 링크 텍스트는 `[대괄호]`로 구분함.  
+
+#### 1. Inline-Style(인라인 스타일)
+● 링크 텍스트의 닫는 대괄호 **바로 뒤에 이어서** `(URL "선택 사항=Title")`를 사용하면 됨.  
+```
+This is [An example] (https://github.com/ "GitHub") Inline link.
+[This link] (https://github.com/) has no title attribute.
+```
+This is [An example](https://github.com/ "GitHub") Inline link.  
+[This link](https://github.com/) has no title attribute.  
+↳ 위 예시는 이렇게 보인다.  
+
+● HTML로 표현된 모습.  
+```
+<p> This is <a href="https://github.com/" title="GitHub"> An example </a> Inline link. </p>
+
+<p> <a href="https://github.com/"> This link </a> has no title attribute. </p>
+```
+
+● 동일한 서버의 로컬 리소스를 참조하는 경우 상대 경로를 사용할 수 있음.  
+```
+See my [About](/about/) page for details.
+```
+See my [About](/about/) page for details.  
+↳ 위 예시는 이렇게 보인다.  
+
+#### 2. Reference-Style(참조 스타일)    ★★★★ 올바른 작동인지 모르겠음 ★★★★
+● 참조 스타일 링크는 **대괄호 세트를 2개 사용하며**, 그 안에 **링크를 식별하기 위해 선택한 레이블을 배치함**.  
+
+● 그 다음 **문서의 아무 곳에서나 한 줄에 다음과 같이 링크 레이블을 정의**합니다.    
+```
+This is [An example][id] reference-style link.
+   # 이렇게 이어서 쓰려면 최소 한 줄의 공백이 필요하다!!
+  [id]: https://github.com/ "선택 사항=Title"
+```
+This is [An example] [id] reference-style link.
+
+  [id]: https://github.com/ "깃허브"  
+↳ 위 예시는 이렇게 보인다.  
+
+※ 링크 레이블에 대해서. ※    
+1. 링크 식별자를 포함하는 대괄호(선택적으로 최대 3개의 공백을 사용하여 왼쪽 여백에서 들여쓰기).
+2. 뒤에 `:`
+3. 하나 이상의 공백(또는 탭)이 뒤따릅니다.
+4. 링크의 URL이 뒤따릅니다.  
+  → 링크 URL은 선택적으로 `<URL>` 꺾쇠 괄호로 묶을 수 있음.  
+5. 선택적으로 `"` 또는 `'`, '()'로 묶인 링크의 제목 속성이 뒤따릅니다.  
+  → 링크 레이블 이름은 `문자, 숫자, 공백 및 구두점`으로 구성될 수 있지만, **대소문자를 구분하지 않는다.**  
+  → Markdown.pl 1.0.1에는 링크 제목을 구분하는 데 `'`를 사용하지 못하는 버그가 있음.  
+
+● URL 다음 줄에 패딩을 위한 여분의 공백이나 탭으로 제목 속성을 입력하면, URL이 길 수록 가독성이 좋아질 수 있다.  
+```
+[id]: https://github.com/
+    "Optional Title Here"
+```
+
+● Implicit link(묵시적 링크)는 링크 이름을 **생략**할 수 있으며, 이 경우 **링크 텍스트 자체가 이름으로 사용**된다.  
+  → 빈 대괄호 세트로 사용할 수 있음.
+  → 이 경우 대괄호 세트를 **반드시 공백 없이 붙여야 함.**    
+```
+Visit [Google Website][]
+
+  [Google Website]: https://google.com
+```
+↳ 위 예시는 이렇게 보인다.  
+
+Visit [Google Website][] for more information.
+
+[Google Website]: https://google.com
+
+● 링크 레이블은 Markdown 문서의 아무 곳에나 배치할 수 있다.  
+링크 레이블이 사용될 각 단락 바로 뒤에 공백 한 줄에 이어서 쓰거나, 원한다면 각주와 같이 문서의 끝에 모두 넣을 수 도 있다.
+
+● Implicit link(묵시적 링크)의 사용 예시.  
+```
+I get 10 times more traffic from [Google][] than from
+[Naver][] or [Github][].
+
+  [Google]: https://google.com/        "Google"
+  [Naver]: https://naver.com/  "Yahoo Search"
+  [Github]: https://github.com/    "MSN Search"
+```
+↳ 위 예시는 이렇게 보인다.  
+
+I get 10 times more traffic from [Google][] than from
+[Naver][] or [Github][].
+
+  [Google]: https://google.com/        "Google"
+  [Naver]: https://naver.com/  "Naver"
+  [Github]: https://github.com/    "Github"
+
+ 
+● HTML로 표현된 모습.  
+```
+<p> I get 10 times more traffic from <a href="https://google.com/" title="Google"> Google </a> than from
+<a href="https://naver.com/" title="Nvaer"> Naver </a> or
+<a href="https://github.com/"> Github </a>. </p>
+```
+
+● 비교를 위한 Markdown 인라인 링크 스타일을 사용한 동일 단락.  
+```
+I get 10 times more traffic from [Google](https://google.com/ "Google")
+than from [Naver](https://naver.com/ "Naver") or
+[Github](https://github.com/ "Github").
+```
+
+● 참조 스타일 링크의 장점은 작성하기 쉽다는 것이 아니라, **문서 소스를 훨씬 더 쉽게 읽을 수 있다는 것**입니다.  
+  → 본문 예제 비교 : 참조 스타일(81자) / 인라일 스타일(176자) / 원시 HTML(234자 + 더 많은 마크업).  
+
+※ Markdown 참조 스타일 링크는 소스 문서가 브라우저에서 렌더링되는 최종 출력과 훨씬 더 유사하다.  마크업 관련 메타데이터를 문단 밖으로 이동할 수 있게 함으로써 신문의 내러티브 흐름을 방해하지 않고 링크를 추가할 수 있다.  
+
 ### ② Emphasis (중요성)
 ### ③ Code (암호? 코드?)
 ### ④ Images (이미지)
@@ -484,3 +627,5 @@ end tell
 
 
 ↳ 위 예시는 이렇게 보인다.  
+● HTML로 표현된 모습.   
+
