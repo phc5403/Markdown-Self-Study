@@ -411,6 +411,37 @@ sit amet, consectetuer adipiscing elit.
 ↳ 항목의 넘버링을 건너 뛰고, 띄어쓰기도 다르게 되어있다.  
 
 ### ⑤ Code Blocks (코드 블록)
+● 일반 단락으로 구성하는 대신 코드 블록의 줄을 문자 그대로 해석함.  
+
+● Markdown은 코드 블록을 `<pre>`와 `<code>` 태그로 감싼다.  
+
+● Markdown에서 코드 블록을 생성하려면 블록의 모든 줄을 **최소 4개의 공백 또는 1개의 탭**으로 들여쓰기하면 된다.  
+
+```
+This is a normal paragraph:
+    This is a code block. 
+```
+↳ 위 예시는 이렇게 보인다.  
+
+This is a normal paragraph:
+    This is a code block.
+
+● Markdown 내부에서 변환된 모습.  
+<p> This is a normal paragraph: </p>
+<pre><code> This is a code black. </pre></code>
+
+Here is an example of AppleScript:
+    tell application "Foo"
+        beep
+    end tell
+
+<p>Here is an example of AppleScript:</p>
+
+<pre><code>tell application "Foo"
+    beep
+end tell
+</code></pre>
+
 
 ### ⑥ Horizontal Rules (수평적 규칙)
 
