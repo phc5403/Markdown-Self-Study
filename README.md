@@ -410,7 +410,7 @@ sit amet, consectetuer adipiscing elit.
 1986. What a great season3.  
 ↳ 항목의 넘버링을 건너 뛰고, 띄어쓰기도 다르게 되어있다.  
 
-### ⑤ Code Blocks (코드 블록)
+### ⑤ Code Blocks (코드 블록)  ★★★★★★ 작동 X ★★★★★★★★★
 ● 일반 단락으로 구성하는 대신 코드 블록의 줄을 문자 그대로 해석함.  
 
 ● Markdown은 코드 블록을 `<pre>`와 `<code>` 태그로 감싼다.  
@@ -423,17 +423,19 @@ This is a normal paragraph:
 ```
 ↳ 위 예시는 이렇게 보인다.  
 
-This is a normal paragraph:
-    This is a code block.
+This is a normal paragraph:  
+  This is a code block.  
 
 ● Markdown 내부에서 변환된 모습.  
+```
 <p> This is a normal paragraph: </p>
 <pre><code> This is a code black. </pre></code>
+```
 
-Here is an example of AppleScript:
-    tell application "Foo"
-        beep
-    end tell
+Here is an example of AppleScript:  
+    tell application "Foo"  
+        beep  
+    end tell  
 
 <p>Here is an example of AppleScript:</p>
 
@@ -442,7 +444,29 @@ Here is an example of AppleScript:
 end tell
 </code></pre>
 
+● 코드 블록은 들여쓰기되지 않은 행에 도달할 때까지와 계속됩니다.  
+코드 블록 내에서 `&`와 `<`, `>`는 자동으로 HTML 엔티티로 변환됩니다.  
 
+● 이렇게하면 Markdown을 사용하여 예제 HTML 소스 코드를 포함하는 것이 매우 쉬워집니다.  
+붙여넣고 들여쓰기만 하면 Markdown이 `&`와 `<`, `>`를 인코딩하는 번거로움을 처리합니다.  
+
+```
+    <div class="footer">
+        &copy; 2004 Foo Corporation
+    </div>
+```
+↳ 위 예시는 이렇게 보인다.  
+
+    <div class="footer">
+        &copy; 2004 Foo Corporation
+    </div>
+
+<pre><code>&lt;div class="footer"&gt;
+    &amp;copy; 2004 Foo Corporation
+&lt;/div&gt;
+</code></pre>
+
+    
 ### ⑥ Horizontal Rules (수평적 규칙)
 
 
